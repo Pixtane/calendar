@@ -12,11 +12,13 @@
         "**/.factorypath": true,
         ".vscode": true,
         "package-lock.json": true,
-        "node_modules": true
+        "node_modules": true,
+        "postcss.config.js": true
     },
     "hide-files.files": [
         ".vscode",
         "package-lock.json",
-        "node_modules"
+        "node_modules",
+        "postcss.config.js"
     ]
 }
