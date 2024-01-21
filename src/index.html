@@ -4,31 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calendar+TODO</title>
-    <!-- TODO something here to not use build css -->
     <link rel="stylesheet" href="/styles" />
   </head>
-  <body class="bg-backgroundmain p-5 flex justify-center w-screen h-screen">
+  <body
+    class="bg-backgroundmain p-5 flex justify-center w-screen h-screen overflow-x-hidden"
+  >
     <div class="w-[40rem]">
       <div class="date text-textsecondary text-4xl font-bold mt-10 ml-5"></div>
       <div class="calendar flex flex-col">
         <div class="flex justify-between w-full mt-16">
-          <button class="text-textmain text-2xl font-black hover:text-white">
+          <button
+            class="calendarButtonLeft text-textmain text-2xl font-black hover:text-white"
+          >
             &lt;
           </button>
           <p class="scrollerMonth text-textmain text-2xl font-bold"></p>
-          <button class="text-textmain text-2xl font-black hover:text-white">
+          <button
+            class="calendarButtonRight text-textmain text-2xl font-black hover:text-white"
+          >
             &gt;
           </button>
         </div>
         <div
-          class="calendarGrid grid grid-cols-8 text-textmain font-medium font-sans text-center mt-5 text-xl"
-        >
-          <div></div>
-        </div>
+          class="calendarGrid select-none grid grid-cols-8 text-textmain font-medium font-sans text-center mt-5 text-xl"
+        ></div>
       </div>
-      <section class="todo"></section>
+      <section class="todo pb-5"></section>
     </div>
 
-    <script src="/script"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="/script"></script>
   </body>
 </html>
