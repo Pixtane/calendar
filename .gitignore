@@ -2,4 +2,8 @@ node_modules
 /node_modules
 ./node_modules
 
+.vscode
+/.vscode
+./.vscode
+
 package-lock.json
