@@ -334,7 +334,7 @@ async function addToDoPopup() {
   let XaddToDoPopup = `
   <div class="flex w-[99%] mt-1 relative flex-col gap-3 bg-backgroundblock rounded-xl p-5 pt-4 text-textmain">
     <button class="addToDoButton absolute text-4xl font-normal top-[0.7rem] right-14 text-textsecondary select-none transition-colors hover:text-success">+</button>
-    <button class="closeToDoPopupButton absolute text-xl font-black top-5 right-7 text-textsecondary select-none transition-colors hover:text-danger">✕</button>
+    <button class="closeToDoPopupButton absolute text-2xl font-black top-[0.95rem] right-7 text-textsecondary select-none transition-colors hover:text-danger">✕</button>
     <div>
       <div class="text-2xl inline-block font-medium text-textsecondary hover:text-textmain transition-colors">${selectedDateTitle}</div>
     </div>
@@ -378,13 +378,13 @@ function addToDo() {
     createElementFromHTML(`<form class="newToDoForm flex flex-col gap-1">
     <p class="text-2xl font-medium text-main">Add new Event</p>
     <label for="time">Time</label>
-    <input class="p-1 px-2 rounded" id="time" type="time">
+    <input class="p-1 px-2 rounded bg-texttertiary" id="time" type="time">
 
     <label for="title">Title</label>
-    <input class="p-1 px-2 rounded" id="title" type="text">
+    <input class="p-1 px-2 rounded bg-texttertiary" id="title" type="text">
 
     <label for="description">Description</label>
-    <input class="p-1 px-2 rounded" id="description" type="text">
+    <input class="p-1 px-2 rounded bg-texttertiary" id="description" type="text">
 
     <div><button type="button" class="newTodoSumbitButton rounded-xl px-4 text-xl mt-2 p-2 font-normal text-textmain bg-texttertiary select-none transition-colors hover:text-success">Submit</button></div>
     <hr class="border-textsecondary mt-2"/>
