@@ -11,6 +11,8 @@ let XsumbitTodoButton = document.querySelector(".newTodoSumbitButton");
 let XcalendarButtonLeft = document.querySelector(".calendarButtonLeft");
 let XcalendarButtonRight = document.querySelector(".calendarButtonRight");
 
+let Xevents = document.querySelectorAll(".event");
+
 let selectedDate = null;
 
 let selectedCalendarMonth = 0;
@@ -322,7 +324,17 @@ async function addToDoPopup() {
     }
 
     sortedData.forEach((event) => {
-      Xevents += `<div class="event"><div class="text-xl font-medium text-textsecondary">${event.time}</div> <div class="ml-1 text-2xl font-medium text-white break-all">${event.title}</div> <div class="ml-1 text-xl font-normal text-textmain break-all">${event.description}</div></div>`;
+      Xevents += `<div class="event">
+                    <div class="text-xl inline-block font-medium text-textsecondary">
+                      <div class="eventTime group flex items-center">
+                        ${event.time}
+                        <div class="w-3"></div>
+                        <button class="deleteEventButton text-2xl font-black text-textsecondary select-none transition-all hover:text-danger scale-0 group-hover:scale-100 duration-300 origin-center">✕</button>
+                      </div>
+                    </div> 
+                    <div class="eventTitle ml-1 text-2xl font-medium text-white break-all">${event.title}</div> 
+                    <div class="eventDescription ml-1 text-xl font-normal text-textmain break-all">${event.description}</div>
+                  </div>`;
       //console.log(event);
     });
 
@@ -332,15 +344,17 @@ async function addToDoPopup() {
   }
 
   let XaddToDoPopup = `
-  <div class="flex w-[99%] mt-1 relative flex-col gap-3 bg-backgroundblock rounded-xl p-5 pt-4 text-textmain">
-    <button class="addToDoButton absolute text-4xl font-normal top-[0.7rem] right-14 text-textsecondary select-none transition-colors hover:text-success">+</button>
-    <button class="closeToDoPopupButton absolute text-2xl font-black top-[0.95rem] right-7 text-textsecondary select-none transition-colors hover:text-danger">✕</button>
-    <div>
-      <div class="text-2xl inline-block font-medium text-textsecondary hover:text-textmain transition-colors">${selectedDateTitle}</div>
-    </div>
-    <hr class="border-textsecondary"/>
-    ${Xevents}
-  </div>`;
+                    <div class="flex w-[99%] mt-1 relative flex-col gap-3 bg-backgroundblock rounded-xl p-5 pt-4 text-textmain">
+                      <div class="text-center absolute top-[0.9rem] right-6">
+                        <button class="addToDoButton text-2xl font-normal text-textsecondary select-none transition-colors hover:text-success">🞣</button>
+                        <button class="closeToDoPopupButton text-2xl font-black text-textsecondary select-none transition-colors hover:text-danger">✕</button>
+                      </div>
+                      <div>
+                        <div class="text-2xl inline-block font-medium text-textsecondary hover:text-textmain transition-colors">${selectedDateTitle}</div>
+                      </div>
+                      <hr class="border-textsecondary"/>
+                      ${Xevents}
+                    </div>`;
 
   XtodoPopup.innerHTML = XaddToDoPopup;
   XcloseTodoPopupButton = document.querySelector(".closeToDoPopupButton");
@@ -350,6 +364,17 @@ async function addToDoPopup() {
   XaddTodoPopupButton = document.querySelector(".addToDoButton");
   XaddTodoPopupButton.addEventListener("click", () => {
     addToDo();
+  });
+
+  Xevents = document.querySelectorAll(".event");
+  console.log(Xevents, Xevents.childNodes, Xevents.children);
+  Xevents.forEach((element) => {
+    let XdeleteButton = element.querySelector(".deleteEventButton");
+
+    XdeleteButton.addEventListener("click", () => {
+      console.log("376 trying to delete event: ", element);
+      deleteToDo(element);
+    });
   });
 }
 
@@ -414,7 +439,17 @@ function addToDo() {
         })
         .then(function (response) {
           let XnewToDoElement = createElementFromHTML(
-            `<div class="event"><div class="text-xl font-medium text-textsecondary">${time}</div> <div class="ml-1 text-2xl font-medium text-white break-all">${title}</div> <div class="ml-1 text-xl font-normal text-textmain break-all">${description}</div></div>`
+            `<div class="event">
+                    <div class="text-xl inline-block font-medium text-textsecondary">
+                      <div class="eventTime group flex items-center">
+                        ${time}
+                        <div class="w-3"></div>
+                        <button class="deleteEventButton text-2xl font-black text-textsecondary select-none transition-all hover:text-danger scale-0 group-hover:scale-100 duration-300 origin-center">✕</button>
+                      </div>
+                    </div> 
+                    <div class="eventTitle ml-1 text-2xl font-medium text-white break-all">${title}</div> 
+                    <div class="eventDescription ml-1 text-xl font-normal text-textmain break-all">${description}</div>
+                  </div>`
           );
           hrElement.insertAdjacentElement("afterend", XnewToDoElement);
 
@@ -426,4 +461,54 @@ function addToDo() {
         });
     });
   }
+}
+
+function deleteToDo(element) {
+  if (!XtodoPopup) {
+    return;
+  }
+  element.classList =
+    "event transition-transform origin-top-left duration-200 scale-0";
+
+  setTimeout(() => {
+    let time = element
+      .querySelector(".eventTime")
+      .firstChild.textContent.replace(/ /g, "")
+      .replace(/(\r\n|\n|\r)/gm, "");
+    console.log(
+      "475 time: ",
+      element
+        .querySelector(".eventTime")
+        .firstChild.textContent.replace(/(\r\n|\n|\r)/gm, "")
+        .replace(/ /g, "")
+    );
+    let title = element.querySelector(".eventTitle").textContent;
+    let description = element.querySelector(".eventDescription").textContent;
+
+    // Get the content you want to match
+    let contentToMatch = element.textContent.trim();
+
+    // Find and remove the element with the matching content from XtodoPopup
+    let events = XtodoPopup.querySelectorAll(".event");
+    for (let event of events) {
+      if (event.textContent.trim() === contentToMatch) {
+        event.remove();
+        break; // Remove only the first matching element (if there are multiple)
+      }
+    }
+
+    axios
+      .post("/removedata", {
+        date: selectedDate,
+        time: time,
+        title: title,
+        description: description,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, 200);
 }

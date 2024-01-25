@@ -76,6 +76,50 @@ app.post("/setdata", async (req, res) => {
   }
 });
 
+app.post("/removedata", async (req, res) => {
+  try {
+    const { date, time, title, description } = req.body;
+
+    console.log("Delete data:", req.body);
+
+    // Read the existing JSON data from the file
+    const dataFilePath = __dirname + "/public/user/data.json";
+    const rawData = await fs.readFile(dataFilePath, "utf-8");
+    const jsonData = JSON.parse(rawData);
+
+    // Ensure there is an entry for the specified date
+    jsonData[date] = jsonData[date] || [];
+
+    // Find and remove the element that matches the description
+    jsonData[date] = jsonData[date].filter(
+      (entry) =>
+        !(
+          entry.description === description &&
+          entry.time === time &&
+          entry.title === title
+        )
+    );
+
+    // Remove the date if it becomes empty
+    if (jsonData[date].length === 0) {
+      delete jsonData[date];
+    }
+
+    // Write the updated data back to the file
+    await fs.writeFile(
+      dataFilePath,
+      JSON.stringify(jsonData, null, 2),
+      "utf-8"
+    );
+
+    res.json({ success: true });
+  } catch (error) {
+    // Handle errors
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
