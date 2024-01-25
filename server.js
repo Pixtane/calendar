@@ -28,14 +28,11 @@ app.get("/data", async (req, res) => {
   try {
     // Extract the date parameter from the request query
     const requestedDate = req.query.date;
-    console.log(requestedDate);
 
     // Read the JSON data from the file
     const dataFilePath = __dirname + "/public/user/data.json";
     const rawData = await fs.readFile(dataFilePath, "utf-8");
-    console.log(rawData);
     const jsonData = JSON.parse(rawData);
-    console.log(jsonData);
 
     // Get the relevant data for the requested date
     const relevantData = jsonData[requestedDate] || [];
@@ -51,24 +48,12 @@ app.get("/data", async (req, res) => {
 
 app.post("/setdata", async (req, res) => {
   try {
-    console.log(req.body);
     const { date, time, title, description } = req.body;
 
     // Read the existing JSON data from the file
     const dataFilePath = __dirname + "/public/user/data.json";
     const rawData = await fs.readFile(dataFilePath, "utf-8");
     const jsonData = JSON.parse(rawData);
-
-    console.log(
-      "server data: ",
-      date,
-      time,
-      title,
-      description,
-      dataFilePath,
-      rawData,
-      jsonData
-    );
 
     // Ensure there is an entry for the specified date
     jsonData[date] = jsonData[date] || [];

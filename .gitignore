@@ -7,5 +7,8 @@ node_modules
 ./.vscode
 
 .env
+/.env
+./.env
 
 package-lock.json
+public/user/data.json

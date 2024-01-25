@@ -435,14 +435,11 @@ video {
 .right-7 {
   right: 1.75rem;
 }
+.top-5 {
+  top: 1.25rem;
+}
 .top-\[0\.7rem\] {
   top: 0.7rem;
-}
-.top-\[0\.8rem\] {
-  top: 0.8rem;
-}
-.top-\[0\.9rem\] {
-  top: 0.9rem;
 }
 .top-\[0\.95rem\] {
   top: 0.95rem;
