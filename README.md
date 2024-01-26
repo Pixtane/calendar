@@ -1,5 +1,7 @@
 # Calendar + TODO
 
+A JavaScript version of linux gnome calendar
+
 ## Execution:
 
 ### For development:
