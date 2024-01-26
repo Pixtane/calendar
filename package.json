@@ -1,5 +1,5 @@
 {
-  "name": "calendar-todo",
+  "name": "calendar-todo-js",
   "version": "1.0.0",
   "description": "A calendar and a todo",
   "main": "server.js",
